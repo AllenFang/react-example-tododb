@@ -2,9 +2,13 @@ import path from 'path';
 import webpack from 'webpack';
 
 
+import writeBundle from './utils/writeBundle';
+import startKoa from './utils/startKoa';
+
+
 const PUBLIC_PATH = `http://localhost:3001/assets/`
 const WEBPACK_DEV_SERVER_PORT = parseInt(process.env.PORT) + 1 || 3001;
-
+console.log("WEBPACK_DEV_SERVER_PORT" + WEBPACK_DEV_SERVER_PORT);
 export default {
   server:{
     port: WEBPACK_DEV_SERVER_PORT,
@@ -24,7 +28,7 @@ export default {
   },
   webpack:{
     entry:[
-      'webpack-dev-server/client?http://localhost:${WEBPACK_DEV_SERVER_PORT}',
+      `webpack-dev-server/client?http://localhost:${WEBPACK_DEV_SERVER_PORT}`,
       'webpack/hot/only-dev-server',
       './app/main.js'
     ],
@@ -46,7 +50,11 @@ export default {
 
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoErrorsPlugin()
+      new webpack.NoErrorsPlugin(),
+      function(){
+        this.plugin('done', writeBundle);
+        this.plugin('done', startKoa);
+      }
     ],
 
     resolve: {
