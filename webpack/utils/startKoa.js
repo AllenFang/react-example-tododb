@@ -17,19 +17,15 @@ let startServer = () => {
   const env = assign({NODE_ENV: 'development'}, process.env);
   // start the server procress
   server = cp.fork(KOA_FILE_PATH, {env});
-  console.log("message");
   server.once('message', (message) => {
-    console.log("onstart");
     if (message.match(/^online$/)) {
       if (serverReload) {
-        console.log("browserSync.reload()");
         serverReload = false;
         browserSync.reload();
       }
       if (!started) {
         started = true;
         // Start browserSync
-        console.log("browserSync");
         browserSync({
           port: 8080,
           proxy: 'http://localhost:3000'
@@ -55,9 +51,7 @@ let startServer = () => {
 process.on('exit', () => server.kill('SIGTERM'));
 
 export default function () {
-  console.log("GOGO");
   if (!server) {
-    console.log("GOGO1");
     return startServer();
   }
 };
