@@ -38,7 +38,13 @@ dispatcher.register((action) => {
 
     case Const.TODO_LOAD_SUCCESS:
       _state.todos = action.todos;
-      _state.msg = "Load Todo lsit successfult";
+      _state.msg = "Load Todo list successful";
+      store.emitChange();
+			break;
+
+    case Const.TODO_LOAD_FAIL:
+      _state.todos = [];
+      _state.msg = "Load Todo list fail";
       store.emitChange();
 			break;
 

@@ -14,7 +14,9 @@ export default {
         todos: data
       });
     }, (err) => {
-      console.log(err);
+      dispatcher.dispatch({
+        type: Const.TODO_LOAD_FAIL
+      });
     });
   }
 }

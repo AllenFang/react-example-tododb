@@ -8,6 +8,7 @@ import startKoa from './utils/startKoa';
 
 const PUBLIC_PATH = `http://localhost:3001/assets/`
 const WEBPACK_DEV_SERVER_PORT = parseInt(process.env.PORT) + 1 || 3001;
+const BS_ASSETS = path.resolve(__dirname, './node_modules/bootstrap-sass/assets/stylesheets');
 
 export default {
   server:{
@@ -44,7 +45,8 @@ export default {
 
     module: {
       loaders: [
-        { test: /\.js$/, loaders: ['react-hot', 'babel-loader'], exclude: /node_modules/}
+        { test: /\.js$/, loaders: ['react-hot', 'babel-loader'], exclude: /node_modules/},
+        { test: /\.scss$/, loader: "style-loader!css-loader!sass-loader?includePaths[]="+BS_ASSETS }
       ]
     },
 
