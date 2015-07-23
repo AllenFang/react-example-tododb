@@ -25,9 +25,15 @@ export default class TodoApp extends React.Component{
 
   render(){
     return(
-      <div>
-        <MessageDisplay msg={this.state.msg}/>
-        <TodoList></TodoList>
+      <div className="row">
+        <div className="col-md-offset-2 col-md-8">
+          <div className="panel panel-default">
+            <div className="panel-body">
+              <MessageDisplay msg={this.state.msg}/>
+              <TodoList todos={this.state.todos}></TodoList>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
