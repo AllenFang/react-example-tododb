@@ -1,11 +1,8 @@
 import './styles/index.scss';
 import React from "react";
-import TodoApp from "./components/todo-app";
+import Router from "react-router";
+import route from "./router";
 
-let Todo = React.createFactory(TodoApp);
-
-if (typeof window !== "undefined") {
-  window.onload = function() {
-    React.render(Todo(), document.getElementById("content"));
-  };
-}
+Router.run(route,  Router.HistoryLocation, (Root) => {
+  React.render(<Root/>, document.getElementById('content'));
+});

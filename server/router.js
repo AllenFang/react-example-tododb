@@ -2,7 +2,8 @@
 import fs from 'fs';
 import path from 'path';
 import React from 'react';
-import TodoApp from "../app/components/todo-app";
+import Router from 'react-router';
+import route from '../app/router';
 
 export default function *(){
   let assets;
@@ -11,12 +12,17 @@ export default function *(){
     assets = JSON.parse(assets);
 
 
-  let AppComponent = React.createFactory(TodoApp);
-  let markup = React.renderToString(AppComponent());
+  var getHandler = function(routes, url) {
+    return new Promise(function(resolve) {
+      Router.run(routes, url, function (Handler) {
+        resolve(Handler);
+      });
+    });
+  };
+
+  const handler = yield getHandler(route, this.request.url);
+  const markup = React.renderToString(React.createElement(handler));
+
   assets['markup'] = markup;
-  // }
-  // else {
-  //   assets = require('./webpack-stats.json');
-  // }
   this.render('index', assets);
 }

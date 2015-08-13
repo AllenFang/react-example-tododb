@@ -41,14 +41,10 @@ app.use(jade.middleware({
 }));
 
 
-app.use(route.get('/', irouter));
+// app.use(route.get('/', irouter));
+app.use(irouter);
 app.use(route.get('/todo', todoRoute.listAllTodo));
 
-
-// function *listAll(){
-//   console.log('.....');
-//   this.body = {name: 'hello'};
-// }
 
 var port = process.env.PORT || 3000;
 app.listen(port);
