@@ -15,12 +15,12 @@ export default class TodoApp extends React.Component{
   }
 
   componentDidMount(){
-    todoStore.addChangeListener(this._onChange.bind(this));
-    TodoAction.getTodoList();
+    // todoStore.addChangeListener(this._onChange.bind(this));
+    // TodoAction.getTodoList();
   }
 
   componentWillUnmount() {
-    todoStore.removeChangeListener(this._onChange.bind(this));
+    // todoStore.removeChangeListener(this._onChange.bind(this));
 	}
 
   render(){

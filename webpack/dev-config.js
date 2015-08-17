@@ -53,6 +53,12 @@ export default {
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin(),
+      new webpack.DefinePlugin({
+        'process.env': {
+          BROWSER: JSON.stringify(true),
+          NODE_ENV: JSON.stringify('development')
+        }
+      }),
       function(){
         this.plugin('done', writeBundle);
         this.plugin('done', startKoa);

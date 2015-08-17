@@ -8,23 +8,21 @@ import favicon from 'koa-favicon';
 import logger from 'koa-logger';
 import helmet from 'koa-helmet'
 import route from 'koa-route';
+import cors from 'koa-cors';
 import bodyParser from 'koa-body-parser';
 
 import irouter from './router';
 import * as todoRoute from './todo-rest';
+import * as userRoute from './user-rest';
 
 const env = process.env.NODE_ENV || 'development';
 const app = koa();
 
 app.use(logger());
+app.use(bodyParser());
 app.use(helmet.defaults());
 if(env === 'development'){
-  app.use(function *(next){
-    yield next;
-    this.set('Access-Control-Allow-Origin', '*');
-    this.set('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    this.set('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-  });
+  app.use(cors());
 }
 if (env === 'development') {
   var webpackConfig: Object = require('./../webpack/dev-config');
@@ -35,16 +33,13 @@ else {
   app.use(mount('/assets', staticCache(path.join(__dirname, '../dist'), cacheOpts)));
 }
 app.use(favicon(path.join(__dirname, '../app/images/favicon.ico')));
-app.use(bodyParser());
 app.use(jade.middleware({
   viewPath: path.join(__dirname, '/views')
 }));
 
-
-// app.use(route.get('/', irouter));
+app.use(route.post('/auth/login', userRoute.login));
+app.use(route.get('/api/todo', todoRoute.listAllTodo));
 app.use(irouter);
-app.use(route.get('/todo', todoRoute.listAllTodo));
-
 
 var port = process.env.PORT || 3000;
 app.listen(port);

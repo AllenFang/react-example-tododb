@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import React from 'react';
 import Router from 'react-router';
-import route from '../app/router';
+import routes from '../app/routes';
 
 export default function *(){
   let assets;
@@ -20,9 +20,8 @@ export default function *(){
     });
   };
 
-  const handler = yield getHandler(route, this.request.url);
+  const handler = yield getHandler(routes, this.request.url);
   const markup = React.renderToString(React.createElement(handler));
-
   assets['markup'] = markup;
   this.render('index', assets);
 }
