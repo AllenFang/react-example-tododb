@@ -45,7 +45,7 @@ export default {
 
     module: {
       loaders: [
-        { test: /\.js$/, loaders: ['react-hot', 'babel-loader?stage=1&optional=runtime'], exclude: /node_modules/},
+        { test: /\.js$/, loaders: ['react-hot', 'babel'], exclude: /node_modules/},
         { test: /\.scss$/, loader: "style-loader!css-loader!sass-loader?includePaths[]="+BS_ASSETS }
       ]
     },
