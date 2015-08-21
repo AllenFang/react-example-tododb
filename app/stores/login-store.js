@@ -19,11 +19,14 @@ class LoginStore {
 
   onLogin(data){
     if(data.ok){
-      // console.log(data);
-      this.storeUser(data.user);
-      router.transitionTo('todo');
+      if(data.user.message){
+        this.error = data.user.message;
+      } else {
+        this.storeUser(data.user);
+        router.transitionTo('todo');
+      }
     } else{
-
+      router.transitionTo('login');
     }
   }
 }

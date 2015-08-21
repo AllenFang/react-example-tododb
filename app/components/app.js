@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import {RouteHandler, Link} from 'react-router';
+import {RouteHandler} from 'react-router';
 import LoginAction from '../actions/login-action';
 import LoginStore from '../stores/login-store';
 import Footer from './commons/footer';
@@ -15,8 +15,6 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="container-fluid">
-        <Link to="todo">Todo</Link>
-        <Link to="login">Login</Link>
         <RouteHandler />
         <Footer />
       </div>

@@ -22,7 +22,6 @@ export var login = function *(next){
       throw err;
     }
   } catch(e){
-    this.status = 401;
     this.body = e;
   }
 }
